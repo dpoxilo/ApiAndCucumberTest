@@ -1,18 +1,13 @@
 package Hooks;
 
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
-import io.cucumber.java.After;
+import com.codeborne.selenide.logevents.SelenideLogger;
 import io.cucumber.java.Before;
+import io.qameta.allure.selenide.AllureSelenide;
 
 public class Hooks {
     @Before
-    public static void setUp() {
-        Configuration.startMaximized = true;
-    }
-
-    @After
-    public void tearDown() {
-        WebDriverRunner.closeWebDriver();
+    public static void before() {
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide().screenshots(true).savePageSource(false));
     }
 }

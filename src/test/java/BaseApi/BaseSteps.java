@@ -4,6 +4,7 @@ import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.И;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -27,6 +28,7 @@ public class BaseSteps {
     public int lastChar;
 
     @Когда("^узнаем информацию о персонаже c id \"([^\"]*)\"")
+    @Step("Узнаем информацию о персонаже c id {id}")
     public void gettingCharacter(String id) {
         Response gettingCharacter = given()
                 .baseUri(baseUriMortyApi)
@@ -42,6 +44,7 @@ public class BaseSteps {
     }
 
     @И("^получаем номер последнего эпизода с участием этого персонажа")
+    @Step("Получаем номер последнего эпизода с участием этого персонажа")
     public void gettingLastEpisode() {
         Response gettingLastEpisode = given()
                 .baseUri(baseUriMortyApi)
@@ -57,6 +60,7 @@ public class BaseSteps {
     }
 
     @И("^получаем последнего персонажа в этом эпизоде")
+    @Step("Получаем последнего персонажа в этом эпизоде")
     public void gettingLastCharacter() {
         Response gettingLastChar = given()
                 .baseUri(baseUriMortyApi)
@@ -72,6 +76,7 @@ public class BaseSteps {
     }
 
     @И("^узнаем информацию о последнем персонаже")
+    @Step("Узнаем информацию о последнем персонаже")
     public void gettingLastCharInfo() {
         Response gettingLastCharInfo = given()
                 .baseUri(baseUriMortyApi)
@@ -86,6 +91,7 @@ public class BaseSteps {
     }
 
     @Тогда("^сравниваем местонахождение обоих персонажей")
+    @Step("Сравниваем местонахождение обоих персонажей")
     public void locAssert() {
         if (mortyLoc.equals(lastCharLoc)) {
             System.out.println("Персонажи находятся в одном месте");
@@ -95,6 +101,7 @@ public class BaseSteps {
     }
 
     @И("^сравниваем расу обоих персонажей")
+    @Step("Сравниваем расу обоих персонажей")
     public void raceAssert() {
         if (mortyRace.equals(lastCharRace)) {
             System.out.println("Персонажи одной расы");
@@ -104,6 +111,7 @@ public class BaseSteps {
     }
 
     @Дано("^json файл, производим post запрос с редактированием полей и проверкой тела")
+    @Step("Дан json файл, производим post запрос с редактированием полей и проверкой тела")
     public void sendBody() throws IOException {
         JSONObject body = new JSONObject(new String(Files.readAllBytes(Paths.get("src/test/resources/json/1.json"))));
         body.put("name", "Tomato");
